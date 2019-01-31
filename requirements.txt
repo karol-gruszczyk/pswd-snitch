@@ -1,0 +1,12 @@
+# core
+cryptography
+Pillow
+
+# ui
+pyperclip
+urwid
+
+# qa
+flake8
+pytest
+black
