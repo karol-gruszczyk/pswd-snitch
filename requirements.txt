@@ -9,4 +9,6 @@ urwid
 # qa
 flake8
 pytest
+pytest-timeout
+pytest-profiling
 black

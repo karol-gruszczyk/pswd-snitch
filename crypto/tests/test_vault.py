@@ -1,11 +1,24 @@
+import os
+
 import pytest
 
-from ..vault import ImageVault
+from PIL import Image
+
+from ..vault import ImageVault, Password
 
 
 class TestImageVault:
     @pytest.mark.parametrize(
-        "python_obj", (1, "foo", [1], {"foo": [1, 2, "baz", ["chaz"]]})
+        "passwords", ([], [Password('foo', 'bar', 'baz')])
     )
-    def test_encoding(self, python_obj):
-        assert python_obj == ImageVault._from_bytes(ImageVault._to_bytes(python_obj))
+    def test_encoding(self, passwords):
+        assert passwords == ImageVault._from_bytes(ImageVault._to_bytes(passwords))
+
+    def test_performance(self):
+        image = Image.new('RGB', (4000, 4000), color='black')
+        image.save('test.png')
+
+        vault = ImageVault('test.png', password='', for_write=True)
+        vault.save('test.png')
+
+        os.remove('test.png')

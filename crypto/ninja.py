@@ -22,7 +22,7 @@ class BytesNinja:
     @staticmethod
     def _get_bits(data: bytes) -> t.Iterable[int]:
         for byte in data:
-            yield from (byte >> i & 0x01 for i in reversed(range(8)))
+            yield from (byte >> i & 0x01 for i in range(7, -1, -1))
 
     @staticmethod
     def _get_bytes(bits: t.Iterable[int]) -> bytes:
